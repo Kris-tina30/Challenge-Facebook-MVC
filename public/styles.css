@@ -1,0 +1,135 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  max-width: 1200px;
+  margin: 15px auto;
+  font-family: 'Noto Serif', serif;
+  border: 3px solid rgb(0, 0, 0);
+}
+p,
+h1,
+h2,
+h3,
+a,
+ul {
+  text-decoration: none;
+  color: #252525;
+}
+li {
+  list-style: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+h3 {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+p {
+  margin-left: 30px;
+}
+/* header */
+
+header {
+  background-color: rgb(195, 192, 192);
+
+  border-bottom: 3px solid black;
+  padding: 25px 15px 25px 15px;
+}
+.header-container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-around;
+}
+h1 {
+  padding-left: 25px;
+  margin-bottom: 15px;
+  border-bottom: 3px solid rgb(0, 0, 0);
+}
+nav {
+  display: flex;
+  gap: 30px;
+}
+input {
+  padding: 8px;
+  width: 50%;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 6px;
+}
+.btn {
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 3px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+}
+.header-btn {
+  width: 10%;
+  border-radius: 50px;
+}
+
+/* main */
+.post-data {
+  margin: 25px 50px 25px 50px;
+  border-bottom: 3px solid rgb(0, 0, 0);
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.form {
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input .message {
+  width: 50%;
+  padding: 10px;
+  height: 80px;
+  border: 2px solid rgb(0, 0, 0);
+}
+.post {
+  width: 10%;
+  background-color: rgb(126, 126, 239);
+  color: rgb(255, 255, 255);
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.7);
+}
+.comment {
+  width: 15%;
+  color: rgb(255, 255, 255);
+  background-color: rgb(144, 229, 150);
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.7);
+}
+.message {
+  background-color: rgb(126, 126, 239);
+  padding: 10px;
+  width: 850px;
+}
+.comment-item {
+  background-color: rgb(144, 229, 150);
+  padding: 10px;
+  margin-top: 10px;
+}
+.comment-text {
+  margin: 10px;
+}
+.message-wrap {
+  display: flex;
+  gap: 15px;
+}
+.delete-btn {
+  background-color: rgb(237, 49, 49);
+  color: rgb(255, 255, 255);
+}

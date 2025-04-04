@@ -1,0 +1,36 @@
+{
+  "name": "challenge-facebook-mvc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "lint": "eslint src/**/*.js",
+    "start": "node ./src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kris-tina30/Challenge-Facebook-MVC.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kris-tina30/Challenge-Facebook-MVC/issues"
+  },
+  "homepage": "https://github.com/Kris-tina30/Challenge-Facebook-MVC#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "eslint": "^9.23.0",
+    "globals": "^16.0.0",
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.18.2",
+    "mongoose": "^8.13.2"
+  }
+}

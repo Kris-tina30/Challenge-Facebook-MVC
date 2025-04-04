@@ -1,0 +1,31 @@
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <%- include("./partials/header.ejs") %>
+    <div class="post-container">
+      <h1>Welcome to Facebook</h1>
+
+      <h2><%= post.userName %></h2>
+      <p><%= post.userMessage %></p>
+      <span class="date">- <%= post.createdAt%></span>
+      <a href="/feed/delete-post/<%= post._id%>"
+        ><button class="btn delete-btn">delete</button></a
+      >
+      <a class="btn delete-btn" href="/feed/edit/<%= post._id%>">Edit post</a>
+      <h2>Comments:</h2>
+
+      <div class="post-item">
+        <% if (post.comments && post.comments.length > 0) { %> <%
+        post.comments.forEach(comment => { %>
+        <div class="post-item">
+          <h3 class="comment-item"><%= comment.userComment %></h3>
+        </div>
+        <% }); %> <% } else { %>
+        <p class="comment-text">No comments yet.</p>
+        <% } %>
+      </div>
+
+      <a class="btn" href="/feed">Back to feed</a>
+    </div>
+  </body>
+</html>

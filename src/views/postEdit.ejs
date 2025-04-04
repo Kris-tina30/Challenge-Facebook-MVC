@@ -1,0 +1,31 @@
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <%- include("./partials/header.ejs") %>
+    <div class="post-container">
+      <h1>Edit a Post</h1>
+
+      <form class="form" method="post" action="/feed/edit/<%= post._id%>">
+        <input
+          value="<%= post.userName%>"
+          type="text"
+          name="userName"
+          placeholder="userName..."
+        />
+        <% if (errors && errors.userName) { %>
+        <p class="error"><%= errors.userName.message %></p>
+        <% } %>
+        <input
+          value="<%= post.userMessage%>"
+          name="userMessage"
+          placeholder="Massage..."
+        />
+        <% if (errors && errors.userMessage) { %>
+        <p class="error"><%= errors.userMessage.message %></p>
+        <% } %>
+
+        <button class="btn" type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

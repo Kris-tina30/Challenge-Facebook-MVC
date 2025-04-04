@@ -1,0 +1,66 @@
+<html lang="en">
+  <%- include("./partials/head.ejs")%>
+  <body>
+    <%- include("./partials/header.ejs")%>
+    <div>
+      <h1>Welcome to Facebook</h1>
+
+      <form class="form" method="post" action="/feed/add-post">
+        <label for="userName">Add a Post</label>
+        <input type="text" name="userName" placeholder="userName" />
+        <% if (errors && errors.userName) { %>
+        <p class="error"><%= errors.userName.message %></p>
+        <% } %>
+        <input class="message" name="userMessage" placeholder="Massage..." />
+        <% if (errors && errors.userMessage) { %>
+        <p class="error"><%= errors.userMessage.message %></p>
+        <% } %>
+        <button class="btn post">Add a Post</button>
+      </form>
+
+      <div class="post-data">
+        <% if (data.length > 0){ %> <% data.forEach (post => { %>
+        <div class="post-item">
+          <h3 class="name"><%= post.userName%></h3>
+
+          <span class="date">- <%= post.createdAt%></span>
+
+          <div class="message-wrap">
+            <p class="message"><%= post.userMessage%></p>
+
+            <a href="/feed/delete-post/<%= post._id%>"
+              ><button class="btn delete-btn">delete</button></a
+            >
+          </div>
+        </div>
+        <form
+          class="form"
+          method="post"
+          action="/feed/add-comment/<%= post._id%>"
+        >
+          <input
+            class="input-comment"
+            type="text"
+            name="userComment"
+            placeholder=" Your comment here..."
+            autocomplete="off"
+          />
+          <button class="btn comment">Post a comment</button>
+          <a class="btn" href="/feed/post/<%= post._id %>">See more</a>
+        </form>
+        <div class="post-item">
+          <% if (post.comments && post.comments.length > 0){ %> <%
+          post.comments.forEach (comment => { %>
+          <div class="post-item">
+            <h3 class="comment-item"><%= comment.userComment%></h3>
+          </div>
+          <% }) %> <% } else { %>
+          <p class="comment-text">No comments yet.</p>
+          <% } %> <%}) %> <% } else { %>
+          <p>There are no messages. Be the first to post something!</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
