@@ -11,7 +11,7 @@
         <% if (errors && errors.userName) { %>
         <p class="error"><%= errors.userName.message %></p>
         <% } %>
-        <input class="message" name="userMessage" placeholder="Massage..." />
+        <input class="message" name="userMessage" placeholder="Message..." />
         <% if (errors && errors.userMessage) { %>
         <p class="error"><%= errors.userMessage.message %></p>
         <% } %>
@@ -19,47 +19,47 @@
       </form>
 
       <div class="post-data">
-        <% if (data.length > 0){ %> <% data.forEach (post => { %>
+        <% if (data.length > 0) { %> <% data.forEach(feed => { %>
         <div class="post-item">
-          <h3 class="name"><%= post.userName%></h3>
-
-          <span class="date">- <%= post.createdAt%></span>
+          <h3 class="name"><%= feed.userName %></h3>
+          <span class="date">- <%= feed.createdAt %></span>
 
           <div class="message-wrap">
-            <p class="message"><%= post.userMessage%></p>
+            <p class="message"><%= feed.userMessage %></p>
 
-            <a href="/feed/delete-post/<%= post._id%>"
-              ><button class="btn delete-btn">delete</button></a
-            >
+            <a href="/feed/delete-post/<%= feed._id %>">
+              <button class="btn delete-btn">delete</button>
+            </a>
           </div>
-        </div>
-        <form
-          class="form"
-          method="post"
-          action="/feed/add-comment/<%= post._id%>"
-        >
-          <input
-            class="input-comment"
-            type="text"
-            name="userComment"
-            placeholder=" Your comment here..."
-            autocomplete="off"
-          />
-          <button class="btn comment">Post a comment</button>
-          <a class="btn" href="/feed/post/<%= post._id %>">See more</a>
-        </form>
-        <div class="post-item">
-          <% if (post.comments && post.comments.length > 0){ %> <%
-          post.comments.forEach (comment => { %>
+
+          <form
+            class="form"
+            method="post"
+            action="/feed/add-comment/<%= feed._id %>"
+          >
+            <input
+              class="input-comment"
+              type="text"
+              name="userComment"
+              placeholder="Your comment here..."
+              autocomplete="off"
+            />
+            <button class="btn comment">Post a comment</button>
+            <a class="btn" href="/feed/post/<%= feed._id %>">See more</a>
+          </form>
+
+          <% if (feed.comments && feed.comments.length > 0) { %> <%
+          feed.comments.forEach(comment => { %>
           <div class="post-item">
-            <h3 class="comment-item"><%= comment.userComment%></h3>
+            <h3 class="comment-item"><%= comment.userComment %></h3>
           </div>
           <% }) %> <% } else { %>
           <p class="comment-text">No comments yet.</p>
-          <% } %> <%}) %> <% } else { %>
-          <p>There are no messages. Be the first to post something!</p>
           <% } %>
         </div>
+        <% }) %> <% } else { %>
+        <p>There are no messages. Be the first to post something!</p>
+        <% } %>
       </div>
     </div>
   </body>

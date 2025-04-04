@@ -5,9 +5,9 @@
     <div class="post-container">
       <h1>Edit a Post</h1>
 
-      <form class="form" method="post" action="/feed/edit/<%= post._id%>">
+      <form class="form" method="post" action="/feed/edit/<%= feed._id%>">
         <input
-          value="<%= post.userName%>"
+          value="<%= feed.userName%>"
           type="text"
           name="userName"
           placeholder="userName..."
@@ -16,7 +16,7 @@
         <p class="error"><%= errors.userName.message %></p>
         <% } %>
         <input
-          value="<%= post.userMessage%>"
+          value="<%= feed.userMessage%>"
           name="userMessage"
           placeholder="Massage..."
         />

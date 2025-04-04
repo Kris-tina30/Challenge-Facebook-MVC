@@ -5,18 +5,18 @@
     <div class="post-container">
       <h1>Welcome to Facebook</h1>
 
-      <h2><%= post.userName %></h2>
-      <p><%= post.userMessage %></p>
-      <span class="date">- <%= post.createdAt%></span>
-      <a href="/feed/delete-post/<%= post._id%>"
+      <h2><%= feed.userName %></h2>
+      <p><%= feed.userMessage %></p>
+      <span class="date">- <%= feed.createdAt%></span>
+      <a href="/feed/delete-post/<%= feed._id%>"
         ><button class="btn delete-btn">delete</button></a
       >
-      <a class="btn delete-btn" href="/feed/edit/<%= post._id%>">Edit post</a>
+      <a class="btn delete-btn" href="/feed/edit/<%= feed._id%>">Edit post</a>
       <h2>Comments:</h2>
 
       <div class="post-item">
-        <% if (post.comments && post.comments.length > 0) { %> <%
-        post.comments.forEach(comment => { %>
+        <% if (feed.comments && feed.comments.length > 0) { %> <%
+        feed.comments.forEach(comment => { %>
         <div class="post-item">
           <h3 class="comment-item"><%= comment.userComment %></h3>
         </div>

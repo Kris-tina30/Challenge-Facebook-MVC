@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const postSchema = new mongoose.Schema(
+const feedSchema = new mongoose.Schema(
   {
     userName: {
       type: String,
@@ -17,4 +17,4 @@ const postSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
-module.exports = mongoose.model('post', postSchema);
+module.exports = mongoose.model('feed', feedSchema);

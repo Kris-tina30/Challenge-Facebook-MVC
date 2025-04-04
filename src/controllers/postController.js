@@ -1,25 +1,25 @@
-const Post = require('../models/posts');
+const Feed = require('../models/feedModel');
 const Comment = require('../models/commentModel');
 
-const getFormattedPosts = () => {
-  return Post.find()
+const getFormattedFeeds = () => {
+  return Feed.find()
     .sort({ createdAt: -1 })
     .populate('comments', '_id userComment')
     .then((result) => {
-      return result.map((post) => ({
-        ...post._doc,
+      return result.map((feed) => ({
+        ...feed._doc,
 
         createdAt: new Intl.DateTimeFormat('en-US', {
           month: 'long',
           day: 'numeric',
           year: 'numeric',
-        }).format(post.createdAt),
+        }).format(feed.createdAt),
       }));
     });
 };
 
 const homePage = (req, res) => {
-  getFormattedPosts()
+  getFormattedFeeds()
     .then((formattedData) => {
       res.render('index', { data: formattedData || [], errors: '' });
     })
@@ -28,17 +28,17 @@ const homePage = (req, res) => {
     });
 };
 
-const addPost = (req, res) => {
-  const addNewPost = new Post(req.body);
+const addFeed = (req, res) => {
+  const addNewFeed = new Feed(req.body);
 
-  addNewPost
+  addNewFeed
     .save()
     .then(() => {
       res.redirect('/feed');
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return getFormattedPosts().then((formattedData) => {
+        return getFormattedFeeds().then((formattedData) => {
           res.render('index', { data: formattedData, errors: err.errors });
         });
       }
@@ -46,9 +46,9 @@ const addPost = (req, res) => {
     });
 };
 
-const getPost = async (req, res) => {
+const getFeed = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id).populate(
+    const post = await Feed.findById(req.params.id).populate(
       'comments',
       '_id userComment',
     );
@@ -57,7 +57,7 @@ const getPost = async (req, res) => {
       return res.status(404).send('Post not found');
     }
 
-    const formattedPost = {
+    const formattedFeed = {
       ...post._doc,
       createdAt: new Intl.DateTimeFormat('en-US', {
         month: 'long',
@@ -66,15 +66,15 @@ const getPost = async (req, res) => {
       }).format(post.createdAt),
     };
 
-    res.render('post', { post: formattedPost });
+    res.render('feed', { feed: formattedFeed });
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
   }
 };
 
-const deletePost = (req, res) => {
-  Post.findByIdAndDelete(req.params.id)
+const deleteFeed = (req, res) => {
+  Feed.findByIdAndDelete(req.params.id)
     .then(() => {
       res.redirect('/feed');
     })
@@ -83,13 +83,13 @@ const deletePost = (req, res) => {
     });
 };
 
-const getEditPost = (req, res) => {
-  Post.findById(req.params.id)
+const getEditFeed = (req, res) => {
+  Feed.findById(req.params.id)
     .then((post) => {
       if (!post) {
         return res.status(404).send('Post not found');
       }
-      res.render('postEdit', { post, errors: {} });
+      res.render('postEdit', { feed: post, errors: {} });
     })
     .catch((err) => {
       console.error(err);
@@ -97,17 +97,38 @@ const getEditPost = (req, res) => {
     });
 };
 
-const editPost = (req, res) => {
-  Post.findByIdAndUpdate(req.params.id, {
-    userName: req.body.userName,
-    userMessage: req.body.userMessage,
-  })
+const editFeed = (req, res) => {
+  Feed.findByIdAndUpdate(
+    req.params.id,
+    {
+      userName: req.body.userName,
+      userMessage: req.body.userMessage,
+    },
+    { runValidators: true, new: true },
+  )
     .then(() => {
       res.redirect(`/feed/post/${req.params.id}`);
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send('Error updating post');
+      if (err.name === 'ValidationError') {
+        Feed.findById(req.params.id)
+          .then((post) => {
+            if (!post) {
+              return res.status(404).send('Post not found');
+            }
+            res.render('postEdit', {
+              feed: post,
+              errors: err.errors,
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+          });
+      } else {
+        console.error(err);
+        res.status(500).send('Error updating post');
+      }
     });
 };
 
@@ -123,7 +144,7 @@ const addComment = (req, res) => {
     addNewComment
       .save()
       .then((savedComment) => {
-        Post.findById(postId)
+        Feed.findById(postId)
           .then((postInfo) => {
             console.log(postInfo);
             postInfo.comments.push(savedComment._id);
@@ -150,13 +171,13 @@ const addComment = (req, res) => {
 const notFoundPage = (req, res) => {};
 
 module.exports = {
-  getFormattedPosts,
+  getFormattedFeeds,
   homePage,
-  addPost,
-  getPost,
-  deletePost,
-  getEditPost,
-  editPost,
+  addFeed,
+  getFeed,
+  deleteFeed,
+  getEditFeed,
+  editFeed,
   addComment,
   notFoundPage,
 };
